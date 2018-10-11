@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 class myPhoto extends Component {
   render() {
     const { navigate } = this.props.navigation;
-
+    console.log(this.props);
     return (
       <View
         style={{ flex: 1, flexDirection: "column", backgroundColor: "green" }}
@@ -14,7 +14,7 @@ class myPhoto extends Component {
           <Image
             style={{ width: "100%", height: "100%" }}
             source={{
-              uri: "https://facebook.github.io/react/logo-og.png"
+              uri: this.props.newSrc
             }}
           />
         </TouchableHighlight>
@@ -23,9 +23,8 @@ class myPhoto extends Component {
   }
 }
 
-// const mapStateToProps = state => {
-//   return { newSrc: state.src };
-// };
+const mapStateToProps = state => {
+  return { newSrc: state.src };
+};
 
-// export default connect(mapStateToProps)(myPhoto);
-export default myPhoto;
+export default connect(mapStateToProps)(myPhoto);

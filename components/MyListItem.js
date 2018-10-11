@@ -5,8 +5,7 @@ import {
   View,
   FlatList,
   Image,
-  TouchableHighlight,
-  Alert
+  TouchableHighlight
 } from "react-native";
 import { connect } from "react-redux";
 import { changeImage } from "../redux/redux";
@@ -39,7 +38,7 @@ class MyListItem extends React.Component {
   onPressHandler = src => {
     const { navigate } = this.props.navigation;
     console.log(this.props);
-    //this.props.setNewImage(src);
+    this.props.setNewImage(src);
     navigate("Photo");
   };
 
@@ -105,9 +104,9 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-// export default connect(
-//   mapStateToProps,
-//   mapDispatchToProps
-// )(MyListItem);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(MyListItem);
 
-export default MyListItem;
+//export default MyListItem;
