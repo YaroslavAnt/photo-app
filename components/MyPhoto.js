@@ -1,14 +1,31 @@
-import React from "react";
-import { StyleSheet, Text } from "react-native";
+import React, { Component } from "react";
+import { Image, View, TouchableHighlight } from "react-native";
+import { connect } from "react-redux";
 
-const listItem = props => <Text style={styles.item}>{props.text}</Text>;
+class myPhoto extends Component {
+  render() {
+    const { navigate } = this.props.navigation;
 
-const styles = StyleSheet.create({
-  item: {
-    padding: 10,
-    fontSize: 18,
-    height: 44
+    return (
+      <View
+        style={{ flex: 1, flexDirection: "column", backgroundColor: "green" }}
+      >
+        <TouchableHighlight onPress={() => navigate("Home")}>
+          <Image
+            style={{ width: "100%", height: "100%" }}
+            source={{
+              uri: "https://facebook.github.io/react/logo-og.png"
+            }}
+          />
+        </TouchableHighlight>
+      </View>
+    );
   }
-});
+}
 
-export default listItem;
+// const mapStateToProps = state => {
+//   return { newSrc: state.src };
+// };
+
+// export default connect(mapStateToProps)(myPhoto);
+export default myPhoto;

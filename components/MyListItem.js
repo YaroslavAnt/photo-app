@@ -8,8 +8,27 @@ import {
   TouchableHighlight,
   Alert
 } from "react-native";
+import { connect } from "react-redux";
+import { changeImage } from "../redux/redux";
 
-export default class MyListItem extends React.Component {
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    paddingTop: 25
+  },
+  item: {
+    margin: 5
+  },
+  baseText: {
+    fontSize: 16
+  },
+  titleText: {
+    fontSize: 24,
+    fontWeight: "bold"
+  }
+});
+
+class MyListItem extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -17,14 +36,19 @@ export default class MyListItem extends React.Component {
     };
   }
 
-  _onPressButton = id => {
-    Alert.alert("You tapped the button!" + id);
+  onPressHandler = src => {
+    const { navigate } = this.props.navigation;
+    console.log(this.props);
+    //this.props.setNewImage(src);
+    navigate("Photo");
   };
 
   renderItem = ({ item }) => {
     return (
       <View style={styles.item}>
-        <TouchableHighlight onPress={() => this._onPressButton(item.id)}>
+        <TouchableHighlight
+          onPress={() => this.onPressHandler(item.urls.small)}
+        >
           <View style={{ flexDirection: "row", flex: 1 }}>
             <Image
               style={{ width: 100, height: 100, marginRight: 15 }}
@@ -59,25 +83,31 @@ export default class MyListItem extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <FlatList data={this.state.dataSource} renderItem={this.renderItem} />
+        <FlatList
+          keyExtractor={(item, index) => item.id}
+          data={this.state.dataSource}
+          renderItem={this.renderItem}
+        />
       </View>
     );
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingTop: 25
-  },
-  item: {
-    margin: 5
-  },
-  baseText: {
-    fontSize: 16
-  },
-  titleText: {
-    fontSize: 24,
-    fontWeight: "bold"
-  }
-});
+const mapStateToProps = state => {
+  return {};
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    setNewImage: newSrc => {
+      dispatch(changeImage(newSrc));
+    }
+  };
+};
+
+// export default connect(
+//   mapStateToProps,
+//   mapDispatchToProps
+// )(MyListItem);
+
+export default MyListItem;
